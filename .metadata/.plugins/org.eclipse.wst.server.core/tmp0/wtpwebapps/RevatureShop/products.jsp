@@ -1,10 +1,10 @@
-<%@page import="com.eazydeals.dao.WishlistDao"%>
-<%@page import="com.eazydeals.entities.User"%>
-<%@page import="com.eazydeals.dao.CategoryDao"%>
-<%@page import="com.eazydeals.entities.Product"%>
+<%@page import="com.revature.dao.WishlistDao"%>
+<%@page import="com.revature.entities.User"%>
+<%@page import="com.revature.dao.CategoryDao"%>
+<%@page import="com.revature.entities.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="com.eazydeals.helper.ConnectionProvider"%>
-<%@page import="com.eazydeals.dao.ProductDao"%>
+<%@page import="com.revature.helper.ConnectionProvider"%>
+<%@page import="com.revature.dao.ProductDao"%>
 <%
 User u = (User) session.getAttribute("activeUser");
 WishlistDao wishlistDao = new WishlistDao(ConnectionProvider.getConnection());
@@ -96,37 +96,7 @@ if (prodList != null && prodList.size() == 0) {
 						<img src="Product_imgs\<%=p.getProductImages()%>"
 							class="card-img-top m-2"
 							style="max-width: 100%; max-height: 200px; width: auto;">
-						<div class="wishlist-icon">
-							<%
-							if (u != null) {
-								if (wishlistDao.getWishlist(u.getUserId(), p.getProductId())) {
-							%>
-							<button
-								onclick="window.open('WishlistServlet?uid=<%=u.getUserId()%>&pid=<%=p.getProductId()%>&op=remove', '_self')"
-								class="btn btn-link" type="submit">
-								<i class="fa-sharp fa-solid fa-heart" style="color: #ff0303;"></i>
-							</button>
-							<%
-							} else {
-							%>
-							<button type="submit"
-								onclick="window.open('WishlistServlet?uid=<%=u.getUserId()%>&pid=<%=p.getProductId()%>&op=add', '_self')"
-								class="btn btn-link">
-								<i class="fa-sharp fa-solid fa-heart" style="color: #909191;"></i>
-							</button>
-							<%
-							}
-							} else {
-							%>
-							<button onclick="window.open('login.jsp', '_self')"
-								class="btn btn-link" type="submit">
-								<i class="fa-sharp fa-solid fa-heart" style="color: #909191;"></i>
-							</button>
-							<%
-							}
-							%>
-
-						</div>
+					
 						<h5 class="card-title text-center"><%=p.getProductName()%></h5>
 
 						<div class="container text-center">

@@ -1,6 +1,6 @@
-<%@page import="com.eazydeals.entities.Message"%>
-<%@page import="com.eazydeals.entities.Product"%>
-<%@page import="com.eazydeals.dao.ProductDao"%>
+<%@page import="com.revature.entities.Message"%>
+<%@page import="com.revature.entities.Product"%>
+<%@page import="com.revature.dao.ProductDao"%>
 <%@page errorPage="error_exception.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>

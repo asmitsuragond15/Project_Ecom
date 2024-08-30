@@ -1,4 +1,4 @@
-<%@page import="com.eazydeals.entities.Message"%>
+<%@page import="com.revature.entities.Message"%>
 <%
 Message messg = (Message) session.getAttribute("message");
 if (messg != null) {

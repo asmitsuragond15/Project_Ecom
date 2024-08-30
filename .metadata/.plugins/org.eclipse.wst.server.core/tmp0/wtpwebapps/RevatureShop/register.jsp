@@ -23,8 +23,7 @@ label {
 					<div class="card-body px-5">
 
 						<div class="container text-center">
-							<img src="Images/signUp.png" style="max-width: 80px;"
-								class="img-fluid">
+							
 						</div>
 						<h3 class="text-center">Create Account</h3>
 						<%@include file="Components/alert_message.jsp"%>

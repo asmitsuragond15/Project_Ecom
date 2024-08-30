@@ -1,4 +1,4 @@
-<%@page import="com.eazydeals.entities.Message"%>
+<%@page import="com.revature.entities.Message"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page errorPage="error_exception.jsp"%>
@@ -42,24 +42,14 @@ a {
 		<%@include file="Components/alert_message.jsp"%>
 		<div class="row">
 			<div class="container text-center" id="details">
-				<img src="Images/admin.png" style="max-width: 180px;"
+				<img src="Images/customerli.png" style="max-width: 180px;"
 					class="img-fluid">
 			
 			</div>
 		</div>
 		<div class="container">
 			<div class="row px-3 py-3">
-				<div class="col-md-4">
-					<a href="display_category.jsp">
-						<div class="card text-bg-light mb-3 text-center">
-							<div class="card-body">
-								<img src="Images/categories.png" style="max-width: 80px;"
-									class="img-fluid">
-								<h4 class="card-title mt-3">Category</h4>
-							</div>
-						</div>
-					</a>
-				</div>
+		
 				<div class="col-md-4">
 					<a href="display_products.jsp">
 						<div class="card text-bg-light mb-3 text-center">

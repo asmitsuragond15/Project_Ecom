@@ -1,11 +1,11 @@
-<%@page import="com.eazydeals.entities.Admin"%>
-<%@page import="com.eazydeals.entities.Cart"%>
-<%@page import="com.eazydeals.dao.CartDao"%>
-<%@page import="com.eazydeals.entities.User"%>
+<%@page import="com.revature.entities.Admin"%>
+<%@page import="com.revature.entities.Cart"%>
+<%@page import="com.revature.dao.CartDao"%>
+<%@page import="com.revature.entities.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.eazydeals.entities.Category"%>
-<%@page import="com.eazydeals.helper.ConnectionProvider"%>
-<%@page import="com.eazydeals.dao.CategoryDao"%>
+<%@page import="com.revature.entities.Category"%>
+<%@page import="com.revature.helper.ConnectionProvider"%>
+<%@page import="com.revature.dao.CategoryDao"%>
 <%
 User user = (User) session.getAttribute("activeUser");
 Admin admin = (Admin) session.getAttribute("activeAdmin");
@@ -50,6 +50,8 @@ List<Category> categoryList = catDao.getAllCategories();
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+			
+			
 			<div class="container text-end">
 				<ul class="navbar-nav justify-content-end">
 					<li class="nav-item"><button type="button"
@@ -62,8 +64,6 @@ List<Category> categoryList = catDao.getAllCategories();
 							data-bs-target="#add-product">
 							<i class="fa-solid fa-plus fa-xs"></i>Add Product
 						</button></li>
-
-
 					<li class="nav-item"><a class="nav-link" aria-current="page"
 						href="admin.jsp"><%=admin.getName()%></a></li>
 					<li class="nav-item"><a class="nav-link" aria-current="page"

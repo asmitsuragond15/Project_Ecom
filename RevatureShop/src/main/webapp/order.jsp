@@ -1,11 +1,11 @@
-<%@page import="com.eazydeals.entities.Message"%>
-<%@page import="com.eazydeals.entities.OrderedProduct"%>
-<%@page import="com.eazydeals.entities.Order"%>
+<%@page import="com.revature.entities.Message"%>
+<%@page import="com.revature.entities.OrderedProduct"%>
+<%@page import="com.revature.entities.Order"%>
 <%@page import="java.util.List"%>
-<%@page import="com.eazydeals.dao.OrderedProductDao"%>
-<%@page import="com.eazydeals.dao.OrderDao"%>
-<%@page import="com.eazydeals.helper.ConnectionProvider"%>
-<%@page import="com.eazydeals.entities.User"%>
+<%@page import="com.revature.dao.OrderedProductDao"%>
+<%@page import="com.revature.dao.OrderDao"%>
+<%@page import="com.revature.helper.ConnectionProvider"%>
+<%@page import="com.revature.entities.User"%>
 <%@page errorPage="error_exception.jsp"%>
 
 <%

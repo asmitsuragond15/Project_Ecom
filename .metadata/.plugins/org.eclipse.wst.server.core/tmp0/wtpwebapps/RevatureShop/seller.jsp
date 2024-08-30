@@ -1,4 +1,4 @@
-<%@page import="com.eazydeals.dao.AdminDao"%>
+<%@page import="com.revature.dao.AdminDao"%>
 <%@page errorPage="error_exception.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -31,7 +31,7 @@ label {
 				<div class="card">
 					<div class="card-header px-5">
 						<div class="container text-center">
-							<img src="Images/admin.png" style="max-width: 100px;"
+							<img src="Images/customerli.png" style="max-width: 100px;"
 								class="img-fluid">
 						</div>
 						

@@ -1,8 +1,8 @@
-<%@page import="com.eazydeals.entities.Message"%>
-<%@page import="com.eazydeals.entities.Product"%>
-<%@page import="com.eazydeals.dao.ProductDao"%>
-<%@page import="com.eazydeals.entities.Cart"%>
-<%@page import="com.eazydeals.dao.CartDao"%>
+<%@page import="com.revature.entities.Message"%>
+<%@page import="com.revature.entities.Product"%>
+<%@page import="com.revature.dao.ProductDao"%>
+<%@page import="com.revature.entities.Cart"%>
+<%@page import="com.revature.dao.CartDao"%>
 <%@page errorPage="error_exception.jsp"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"

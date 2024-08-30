@@ -1,6 +1,6 @@
-<%@page import="com.eazydeals.dao.ProductDao"%>
-<%@page import="com.eazydeals.entities.Product"%>
-<%@page import="com.eazydeals.helper.ConnectionProvider"%>
+<%@page import="com.revature.dao.ProductDao"%>
+<%@page import="com.revature.entities.Product"%>
+<%@page import="com.revature.helper.ConnectionProvider"%>
 <%@page errorPage="error_exception.jsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -44,47 +44,20 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 	<!--navbar -->
 	<%@include file="Components/navbar.jsp"%>
 
-	<!-- Category list -->
-	<div class="container-fluid px-3 py-3"
-		style="background-color: #e3f7fc;">
-		<div class="row">
-			<div class="card-group">
-				<%
-				for (Category c : categoryList) {
-				%>
-				<div class="col text-center">
-					<a href="products.jsp?category=<%=c.getCategoryId()%>"
-						style="text-decoration: none;">
-						<div class="card cus-card h-100">
-							<div class="container text-center">
-								<img src="Product_imgs\<%=c.getCategoryImage()%>" class="mt-3 "
-									style="max-width: 100%; max-height: 100px; width: auto; height: auto;">
-							</div>
-							<h6><%=c.getCategoryName()%></h6>
-						</div>
-					</a>
-				</div>
-
-				<%
-				}
-				%>
-			</div>
-		</div>
-	</div>
-	<!-- end of list -->
+	
 
 	<!-- Carousel -->
 	<div id="carouselAutoplaying"
 		class="carousel slide carousel-dark mt-3 mb-3" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="Images/scroll_img2.png" class="d-block w-100" alt="...">
+				<img src="Images/image1.jpg" class="d-block w-100 " alt="...">
 			</div>
 			<div class="carousel-item">
-				<img src="Images/scroll_img1.png" class="d-block w-100" alt="...">
+				<img src="Images/image2.jpg" class="d-block w-100  " alt="...">
 			</div>
 			<div class="carousel-item">
-				<img src="Images/scroll_img3.png" class="d-block w-100" alt="...">
+				<img src="Images/image3.jpg" class="d-block w-100" alt="...">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button"
@@ -101,15 +74,10 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 	<!-- end of carousel -->
 
 	<!-- latest product listed -->
-	<div class="container-fluid py-3 px-3" style="background: #f2f2f2;">
+	<div class="container-fluid py-3 px-3" style="background: #acacc7;">
+	<h3>Products</h3>
 		<div class="row row-cols-1 row-cols-md-4 g-3">
-			<div class="col">
-				<div class="container text-center px-5 py-5">
-					<h1>Latest Products</h1>
-					<img src="Images\product.png" class="card-img-top"
-						style="max-width: 100%; max-height: 200px; width: auto;">
-				</div>
-			</div>
+			
 			<%
 			for (int i = 0; i < Math.min(3, productList.size()); i++) {
 			%>
@@ -145,7 +113,7 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 	<!-- end of list -->
 
 	<!-- product with heavy deals -->
-	<div class="container-fluid py-3 px-3" style="background: #f0fffe;">
+	<div class="container-fluid py-3 px-3" style="background: #95c9a4;">
 		<h3>Hot Deals</h3>
 		<div class="row row-cols-1 row-cols-md-4 g-3">
 			<%
@@ -179,6 +147,48 @@ List<Product> topDeals = productDao.getDiscountedProducts();
 		</div>
 	</div>
 	<!-- end -->
+
+
+
+<div class="container-fluid py-3 px-3" style="background: #bac4a5;">
+		<h3>Mega offer</h3>
+		<div class="row row-cols-1 row-cols-md-4 g-3">
+			<%
+			for (int i = 0; i < Math.min(4, topDeals.size()); i++) {
+			
+			%>
+			<div class="col">
+				<a href="viewProduct.jsp?pid=<%=topDeals.get(i).getProductId()%>"
+					style="text-decoration: none;">
+					<div class="card h-100">
+						<div class="container text-center">
+							<img src="Product_imgs\<%=topDeals.get(i).getProductImages()%>"
+								class="card-img-top m-2"
+								style="max-width: 100%; max-height: 200px; width: auto;">
+						</div>
+						<div class="card-body">
+							<h5 class="card-title text-center"><%=topDeals.get(i).getProductName()%></h5>
+
+							<div class="container text-center">
+								<span class="real-price">&#8377;<%=topDeals.get(i).getProductPriceAfterDiscount()%></span>
+								&ensp;<span class="product-price">&#8377;<%=topDeals.get(i).getProductPrice()%>
+								</span>&ensp;<span class="product-discount"><%=topDeals.get(i).getProductDiscount()%>&#37;
+									off</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<%
+			}
+			%>
+		</div>
+	</div>
+
+
+
+
+
 
 	<!-- confirmation message for successful order -->
 	<%
