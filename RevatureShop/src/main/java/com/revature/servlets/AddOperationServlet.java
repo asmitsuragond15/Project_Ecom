@@ -191,6 +191,7 @@ public class AddOperationServlet extends HttpServlet {
 
 			int pid = Integer.parseInt(request.getParameter("pid"));
 			pdao.deleteProduct(pid);
+			System.out.println(pid);
 			response.sendRedirect("display_products.jsp");
 
 		}

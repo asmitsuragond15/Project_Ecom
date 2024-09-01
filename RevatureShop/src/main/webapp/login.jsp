@@ -118,7 +118,7 @@ label{
   border: 2px solid #8707ff;
   border-radius: 10px;
   padding: 10px 25px;
-  background: transparent;
+  
   max-width: 100%;
 }
 
@@ -185,7 +185,7 @@ background-colour:rgb(155, 169, 142);
 <body >  
 
 	<!--navbar -->
-	//<%@include file="Components/navbar.jsp"%>
+	<%@include file="Components/navbar.jsp"%>
 
 
 	<div class="container-fluid ">

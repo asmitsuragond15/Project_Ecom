@@ -1,0 +1,251 @@
+<%@page import="com.revature.entities.Message"%>
+<%@page import="com.revature.dao.ProductDao"%>
+<%@page import="com.revature.dao.CartDao"%>
+<%@page import="com.revature.entities.User"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page errorPage="error_exception.jsp"%>
+
+<%
+User activeUser = (User) session.getAttribute("activeUser");
+if (activeUser == null) {
+    Message message = new Message("You are not logged in! Login first!!", "error", "alert-danger");
+    session.setAttribute("message", message);
+    response.sendRedirect("login.jsp");
+    return;
+}
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Checkout</title>
+<%@include file="Components/common_css_js.jsp"%>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    .card-header {
+        background-color: #389aeb;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px 5px 0 0;
+        margin-bottom: 15px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #389aeb;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #2d7bbd;
+    }
+
+    .btn-secondary {
+        background-color: #f2f2f2;
+        color: #333;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #e2e2e2;
+    }
+
+    .payment-methods {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .payment-option {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-option:hover {
+        border-color: #389aeb;
+    }
+
+    .payment-option img {
+        width: 30px;
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .separator {
+        text-align: center;
+        margin: 20px 0;
+        position: relative;
+    }
+
+    .separator::before,
+    .separator::after {
+        content: '';
+        display: block;
+        width: 45%;
+        height: 1px;
+        background-color: #ddd;
+        position: absolute;
+        top: 50%;
+    }
+
+    .separator::before {
+        left: 0;
+    }
+
+    .separator::after {
+        right: 0;
+    }
+
+    .separator span {
+        background-color: #fff;
+        padding: 0 10px;
+        position: relative;
+        z-index: 1;
+    }
+</style>
+</head>
+<body>
+
+<%@include file="Components/navbar.jsp"%>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left column for delivery address and payment options -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Delivery Address</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong><%= activeUser.getUserName() %></strong> (<%= activeUser.getUserPhone() %>)</p>
+                    <p><%= activeUser.getUserAddress() %>, <%= activeUser.getUserCity() %>, <%= activeUser.getUserState() %>, <%= activeUser.getUserPincode() %></p>
+                    <hr>
+                    <h5>Select Payment Method</h5>
+                    <div class="payment-methods">
+                        <div class="payment-option" onclick="selectPayment('paypal')">
+                            <img src="paypal.png" alt="PayPal">
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('creditCard')">
+                            <img src="credit-card.png" alt="Credit Card">
+                            <span>Credit Card</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('cod')">
+                            <img src="cash-on-delivery.png" alt="Cash on Delivery">
+                            <span>Cash on Delivery</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="paymentDetails">
+                        <!-- Payment details form will be shown here based on selection -->
+                    </div>
+                    <button class="btn btn-primary" onclick="submitOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right column for order summary -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    <p>Subtotal: $XXX.XX</p>
+                    <p>Shipping: $XX.XX</p>
+                    <p><strong>Total: $YYY.YY</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectPayment(method) {
+        let paymentDetails = document.getElementById('paymentDetails');
+        paymentDetails.innerHTML = '';
+        if (method === 'paypal') {
+            paymentDetails.innerHTML = '<p>You selected PayPal. You will be redirected to PayPal for payment.</p>';
+        } else if (method === 'creditCard') {
+            paymentDetails.innerHTML = `
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" class="form-control" placeholder="Enter your card number">
+                </div>
+                <div class="form-group">
+                    <label for="cardExpiry">Expiry Date</label>
+                    <input type="text" id="cardExpiry" class="form-control" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label for="cardCVC">CVC</label>
+                    <input type="text" id="cardCVC" class="form-control" placeholder="Enter CVC">
+                </div>
+            `;
+        } else if (method === 'cod') {
+            paymentDetails.innerHTML = '<p>You selected Cash on Delivery. You will pay upon receiving your order.</p>';
+        }
+    }
+
+    function submitOrder() {
+        // Add your order submission logic here
+        alert('Order has been placed!');
+    }
+</script>
+
+</body>
+</html>

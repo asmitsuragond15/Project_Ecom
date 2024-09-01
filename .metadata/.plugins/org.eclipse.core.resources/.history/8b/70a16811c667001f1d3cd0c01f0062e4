@@ -1,0 +1,196 @@
+<%@page import="com.revature.entities.Message"%>
+<%@page import="com.revature.dao.ProductDao"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="com.revature.dao.CartDao"%>
+<%@page errorPage="error_exception.jsp"%>
+<%
+User activeUser = (User) session.getAttribute("activeUser");
+if (activeUser == null) {
+    Message message = new Message("You are not logged in! Login first!!", "error", "alert-danger");
+    session.setAttribute("message", message);
+    response.sendRedirect("login.jsp");
+    return;
+}
+String from = (String)session.getAttribute("from");
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="ISO-8859-1">
+<title>Checkout</title>
+<%@include file="Components/common_css_js.jsp"%>
+<style>
+/* General Page Styles */
+body {
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Card Styling */
+.card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+/* Form Styling */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.payment--options {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.payment--options button {
+  flex: 1;
+  height: 50px;
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.payment--options button:hover {
+  background-color: #d1d1d1;
+}
+
+/* Separator */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.separator:not(:empty)::before {
+  margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: .25em;
+}
+
+/* Input Fields */
+.input_container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input_label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.input_field {
+  height: 45px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.input_field:focus {
+  border-color: #389aeb;
+  outline: none;
+}
+
+/* Purchase Button */
+.purchase--btn {
+  width: 100%;
+  height: 50px;
+  background-color: #389aeb;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.purchase--btn:hover {
+  background-color: #2a7fc1;
+}
+
+</style>
+</head>
+<body>
+<%@include file="Components/navbar.jsp"%>
+
+<div class="container mt-5" style="max-width: 900px; margin: auto;">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #389aeb;">
+                    <h4>Delivery Address</h4>
+                </div>
+                <div class="card-body">
+                    <h5><%= activeUser.getUserName() %> &nbsp; <%= activeUser.getUserPhone() %></h5>
+                    <p>
+                        <%= activeUser.getUserAddress() %>, <%= activeUser.getUserCity() %>, 
+                        <%= activeUser.getUserState() %>, <%= activeUser.getUserPincode() %>
+                    </p>
+                    <hr>
+                    <form action="OrderOperationServlet" method="post">
+                        <div class="payment--options">
+                            <button type="button" name="paypal">PayPal</button>
+                            <button type="button" name="credit_card">Credit Card</button>
+                            <button type="button" name="net_banking">Net Banking</button>
+                        </div>
+                        <div class="separator">OR</div>
+                        <div class="credit-card-info--form">
+                            <div class="input_container">
+                                <label class="input_label" for="card_number">Card Number</label>
+                                <input class="input_field" type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="split">
+                                <div class="input_container">
+                                    <label class="input_label" for="expiry_date">Expiry Date</label>
+                                    <input class="input_field" type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY">
+                                </div>
+                                <div class="input_container">
+                                    <label class="input_label" for="cvv">CVV</label>
+                                    <input class="input_field" type="password" id="cvv" name="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="purchase--btn">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Right Column (Order Summary) -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-white" style="background-color: #389aeb;">
+                    <h4>Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Order summary details will go here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

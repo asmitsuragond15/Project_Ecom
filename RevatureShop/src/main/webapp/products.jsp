@@ -17,106 +17,145 @@ String message = "";
 ProductDao productDao = new ProductDao(ConnectionProvider.getConnection());
 List<Product> prodList = null;
 if (searchKey != null) {
-	if (!searchKey.isEmpty()) {
-		message = "Showing results for \"" + searchKey + "\"";
-	}else{
-		message = "No product found!";
-	}
-	prodList = productDao.getAllProductsBySearchKey(searchKey);
-
+    if (!searchKey.isEmpty()) {
+        message = "Showing results for \"" + searchKey + "\"";
+    } else {
+        message = "No product found!";
+    }
+    prodList = productDao.getAllProductsBySearchKey(searchKey);
 } else if (catId != null && !(catId.trim().equals("0"))) {
-	prodList = productDao.getAllProductsByCategoryId(Integer.parseInt(catId.trim()));
-	message = "Showing results for \"" + categoryDao.getCategoryName(Integer.parseInt(catId.trim())) + "\"";
+    prodList = productDao.getAllProductsByCategoryId(Integer.parseInt(catId.trim()));
+    message = "Showing results for \"" + categoryDao.getCategoryName(Integer.parseInt(catId.trim())) + "\"";
 } else {
-	prodList = productDao.getAllProducts();
-	message = "All Products";
+    prodList = productDao.getAllProducts();
+    message = "All Products";
 }
 
 if (prodList != null && prodList.size() == 0) {
-
-	message = "No items are available for \""
-	+ (searchKey != null ? searchKey : categoryDao.getCategoryName(Integer.parseInt(catId.trim()))) + "\"";
-
-	prodList = productDao.getAllProducts();
+    message = "No items are available for \""
+        + (searchKey != null ? searchKey : categoryDao.getCategoryName(Integer.parseInt(catId.trim()))) + "\"";
+    prodList = productDao.getAllProducts();
 }
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Products</title>
 <%@include file="Components/common_css_js.jsp"%>
 <style>
-.real-price {
-	font-size: 22px !important;
-	font-weight: 600;
-}
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+    }
 
-.product-price {
-	font-size: 17px !important;
-	text-decoration: line-through;
-}
+    h4 {
+        color: #333;
+        margin-top: 20px;
+    }
 
-.product-discount {
-	font-size: 15px !important;
-	color: #027a3e;
-}
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s;
+    }
 
-.wishlist-icon {
-	cursor: pointer;
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	border: 1px solid #f0f0f0;
-	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
-	padding-right: 40px;
-	background: #fff;
-}
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+
+
+
+        .card-img-top {
+            width: 100%;
+            height: 200px; /* Fixed height for all images */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: ;
+            position: relative;
+             overflow-clip-margin:content-box;
+        overflow:clip;
+        }
+
+        .card-img-top img {
+            max-height: 100%;
+            max-width: 100%;
+     }
+
+
+
+    .real-price {
+        font-size: 22px;
+        font-weight: 600;
+        color: #27ae60;
+    }
+
+    .product-price {
+        font-size: 17px;
+        text-decoration: line-through;
+        color: #888;
+    }
+
+    .product-discount {
+        font-size: 15px;
+        color: #e74c3c;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .container-fluid {
+        margin-top: 30px;
+        padding: 20px;
+    }
 </style>
 </head>
-<body style="background-color: #f0f0f0;">
-	<!--navbar -->
-	<%@include file="Components/navbar.jsp"%>
+<body>
+    <!--navbar -->
+    <%@include file="Components/navbar.jsp"%>
 
-	<!--show products-->
-	<h4 class="text-center mt-2"><%=message%></h4>
-	<div class="container-fluid my-3 px-5">
-
-		<div class="row row-cols-1 row-cols-md-4 g-3">
-			<%
-			for (Product p : prodList) {
-			%>
-			<div class="col">
-
-				<div class="card h-100 px-2 py-2">
-					<div class="container text-center">
-						<img src="Product_imgs\<%=p.getProductImages()%>"
-							class="card-img-top m-2"
-							style="max-width: 100%; max-height: 200px; width: auto;">
-					
-						<h5 class="card-title text-center"><%=p.getProductName()%></h5>
-
-						<div class="container text-center">
-							<span class="real-price">&#8377;<%=p.getProductPriceAfterDiscount()%></span>&ensp;
-							<span class="product-price">&#8377;<%=p.getProductPrice()%></span>&ensp;
-							<span class="product-discount"><%=p.getProductDiscount()%>&#37;off</span>
-						</div>
-						<div class="container text-center mb-2 mt-2">
-							<button type="button"
-								onclick="window.open('viewProduct.jsp?pid=<%=p.getProductId()%>', '_self')"
-								class="btn btn-primary text-white">View Details</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<%
-			}
-			%>
-		</div>
-	</div>
+    <!--show products-->
+    <div class="container-fluid">
+        <h4 class="text-center"><%=message%></h4>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <%
+            for (Product p : prodList) {
+            %>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="Product_imgs\<%=p.getProductImages()%>" class="card-img-top" alt="<%=p.getProductName()%>">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><%=p.getProductName()%></h5>
+                        <div>
+                            <span class="real-price">&#8377;<%=p.getProductPriceAfterDiscount()%></span>&nbsp;
+                            <span class="product-price">&#8377;<%=p.getProductPrice()%></span>&nbsp;
+                            <span class="product-discount"><%=p.getProductDiscount()%>&#37; off</span>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" onclick="window.open('viewProduct.jsp?pid=<%=p.getProductId()%>', '_self')" class="btn btn-primary text-white">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%
+            }
+            %>
+        </div>
+    </div>
 </body>
 </html>
-

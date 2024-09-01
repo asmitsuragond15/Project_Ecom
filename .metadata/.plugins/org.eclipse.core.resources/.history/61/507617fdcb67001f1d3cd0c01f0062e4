@@ -1,0 +1,140 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration</title>
+    <%@include file="Components/common_css_js.jsp"%>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 1rem;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .form-control {
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+        }
+        .form-select {
+            border-radius: 0.5rem;
+            border: 1px solid #ced4da;
+        }
+        .btn-outline-primary {
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+        .text-center h3 {
+            color: #0d6efd;
+            margin-bottom: 2rem;
+        }
+        .form-check-label {
+            margin-right: 1rem;
+        }
+        .alert {
+            margin-bottom: 2rem;
+        }
+        .footer-link {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <%@include file="Components/navbar.jsp"%>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="text-center">Create Your Account</h3>
+                        <%@include file="Components/alert_message.jsp"%>
+
+                        <!-- Registration Form -->
+                        <form id="register-form" action="RegisterServlet" method="post">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Your Name</label>
+                                    <input type="text" name="user_name" class="form-control" placeholder="First and Last Name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="user_email" class="form-control" placeholder="Email Address" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Mobile Number</label>
+                                    <input type="number" name="user_mobile_no" class="form-control" placeholder="Mobile Number">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Gender</label><br>
+                                    <input class="form-check-input" type="radio" name="gender" value="Male" id="male">
+                                    <label class="form-check-label" for="male">Male</label>
+                                    <input class="form-check-input ms-3" type="radio" name="gender" value="Female" id="female">
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <input type="text" name="user_address" class="form-control" placeholder="Enter Address (Area and Street)" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">City</label>
+                                    <input type="text" name="city" class="form-control" placeholder="City/District/Town" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Pincode</label>
+                                    <input type="number" name="pincode" class="form-control" placeholder="Pincode" maxlength="6" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">State</label>
+                                    <select name="state" class="form-select">
+                                        <option selected>--Select State--</option>
+                                        <!-- Add state options here -->
+                                        <option value="Andaman &amp; Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+                                        <!-- Add other states here -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="user_password" class="form-control" placeholder="Enter Password" required>
+                                </div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-outline-primary me-3">Submit</button>
+                                <button type="reset" class="btn btn-outline-primary">Reset</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <h6>
+                                    Already have an account? <a href="login.jsp" class="footer-link">Sign In</a>
+                                </h6>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

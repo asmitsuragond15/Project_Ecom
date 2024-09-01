@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="CSS/about.css"/>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo">Portfolio</a>
+        <nav class="navbar">
+            <button class="butt">
+                <a href="#" style="--i-1;">Home</a>
+                <a href="#" style="--i-2;">About</a>
+                <a href="#" style="--i-3;">Skills</a>
+                <a href="#" style="--i-4;">Project</a>
+                <a href="#" style="--i-5;">Contact</a>
+            </button>
+        </nav>
+    </header>
+
+    <section class="home">
+        <div class="home-content">
+            <h3>Hello, It's Me</h3>
+            <h1>Asmit Suragond</h1>
+            <h3>And I'm a <span class="multiple-text"></span></h3>
+            <p>
+                Asmit Suragond is a highly motivated individual who has earned a Bachelor's degree in Computer Engineering. As a B.Tech in Computer Engineering, Asmit has a strong foundation in various aspects of computer engineering, including programming languages, computer networks, computer architecture, algorithms, and software engineering.
+                Computer Engineering is a branch of engineering that integrates the principles of computer science and electrical engineering to develop computer systems and networks.
+                As a B.Tech in Computer Engineering, Asmit has the knowledge and skills to design, develop, test, and maintain computer systems and software. He has the ability to understand and analyze complex software systems, as well as the knowledge to develop new software and hardware solutions. He is equipped with problem-solving skills and can apply his technical knowledge to real-world situations.
+            </p>
+            <div class="social-media">
+                <a href="https://www.facebook.com/asmit.suragond" style="--i-7;"><i class='bx bxl-facebook'></i></a>
+                <a href="https://twitter.com/suragondasmit15?t=1-NXZPIhPc-sR9inAB8_7Q&s=09" style="--i-8;"><i class='bx bxl-twitter'></i></a>
+                <a href="https://www.instagram.com/asmit_suragond_mh10/" style="--i-9;"><i class='bx bxl-instagram'></i></a>
+                <a href="https://www.linkedin.com/in/asmit-suragond-2389a01a2" style="--i-10;"><i class='bx bxl-linkedin-square'></i></a>
+            </div>
+            <a href="#" class="btn">Download Resume</a>
+        </div>
+        <div class="home-img">
+            <img src=images/piccs value='/piccs.png'  alt="">
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="<c:url value='/script.js' />"></script>
+</body>
+</html>

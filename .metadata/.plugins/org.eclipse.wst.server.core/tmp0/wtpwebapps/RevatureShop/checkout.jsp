@@ -22,7 +22,7 @@ String from = (String)session.getAttribute("from");
 <%@include file="Components/common_css_js.jsp"%>
 
 <style>
-/* From Uiverse.io by zanina-yassine */ 
+
 .card {
   width: fit-content;
   height: fit-content;
@@ -140,6 +140,8 @@ String from = (String)session.getAttribute("from");
 
 .purchase--btn {
   height: 55px;
+  width:100%;
+  margin-top:20px;
   background: #F2F2F2;
   border-radius: 11px;
   border: 0;
@@ -166,6 +168,14 @@ String from = (String)session.getAttribute("from");
 .input_field[type=number] {
   -moz-appearance: textfield;
 }
+.card
+{
+width:100%;
+}
+.asm
+{
+
+}
 
 
 </style>
@@ -179,13 +189,24 @@ String from = (String)session.getAttribute("from");
 
 			<!-- left column -->
 			<div class="col-md-8">
-				<div class="card">
+				<div class="card container-fluid">
 					<div class="container px-3 py-3">
 						<div class="card">
-							<div class="container-fluid text-white"
-								style="background-color: #389aeb;">
-								<h4>Delivery Address</h4>
-							</div>
+							<div class="container-fluid text-white" style="
+    background-color: #389aeb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width:100%;
+">
+    <h4 style="
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+    ">Delivery Address</h4>
+</div>
 						</div>
 						<div class="mt-3 mb-3">
 							<h5><%=user.getUserName()%>
@@ -200,11 +221,7 @@ String from = (String)session.getAttribute("from");
 							out.println(str);
 							%>
 							<br>
-							<div class="text-end">
-								<button type="button" class="btn btn-outline-primary"
-									data-bs-toggle="modal" data-bs-target="#exampleModal">
-									Change Address</button>
-							</div>
+							
 						</div>
 						<hr>
 						
@@ -286,8 +303,15 @@ String from = (String)session.getAttribute("from");
     </div>
     </div>
   </div>
+  <br>
+  <div class="or container mx-auto">
+  <h4 class="col-md-3 mx-auto">OR</h4>
+  </div>
   
-  
+  <br>
+  <div class=asm>
+  <input type=radio name=payementMode><label> Cash on Delivery:</label>
+  </div>
     <button type="submit" class="purchase--btn">Checkout</button>
 </form>
 </div>
